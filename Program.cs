@@ -1,8 +1,4 @@
 ﻿using System;
-using Tabuleiro;
+using tabuleiro;
 
-Posicao p;
-
-p = new Posicao(3, 4);
-
-Console.WriteLine("Posicao" + p.ToString());
+Tabuleiro tab = new Tabuleiro(8, 8);
