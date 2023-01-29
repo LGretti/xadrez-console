@@ -9,9 +9,9 @@ try
     while (!partida.terminada) {
         try {
             Console.Clear();
-            Tela.imprimirTabuleiro(partida.tab);
-            Console.WriteLine("Turno: " + partida.turno);
-            Console.WriteLine("Aguardando jogada de: " + partida.jogadorAtual);
+            Tela.imprimirPartida(partida);
+
+
 
             Console.WriteLine();
             Console.Write("Origem: ");
