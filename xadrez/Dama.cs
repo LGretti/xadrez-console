@@ -1,13 +1,17 @@
-﻿using tabuleiro;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using tabuleiro;
 using tabuleiro.Enums;
 
-namespace xadrez {
-    class Torre : Peca {
-        public Torre(Tabuleiro tabuleiro, Cor cor) : base(tabuleiro, cor) {
-        }
+namespace xadrez_console.xadrez {
+    class Dama : Peca {
+        public Dama(Tabuleiro tab, Cor cor) : base(tab, cor) { }
 
         public override string ToString() {
-            return "T";
+            return "D";
         }
 
         private bool podeMover(Posicao pos) {
@@ -21,6 +25,8 @@ namespace xadrez {
 
             Posicao pos = new Posicao(0, 0);
 
+            //mesma coisa da torre e do bispo
+            //TORRE
             //acima
             pos.definirValores(posicao.linha - 1, posicao.coluna);
             while (tabuleiro.posicaoValida(pos) && podeMover(pos)) {
@@ -67,6 +73,51 @@ namespace xadrez {
                 }
 
                 pos.coluna = pos.coluna - 1;
+            }
+
+            //BISPO
+            //NO
+            pos.definirValores(posicao.linha - 1, posicao.coluna - 1);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos)) {
+                mat[pos.linha, pos.coluna] = true;
+
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor) {
+                    break;
+                }
+                pos.definirValores(pos.linha - 1, pos.coluna - 1);
+            }
+
+            //NE
+            pos.definirValores(posicao.linha - 1, posicao.coluna + 1);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos)) {
+                mat[pos.linha, pos.coluna] = true;
+
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor) {
+                    break;
+                }
+                pos.definirValores(pos.linha - 1, pos.coluna + 1);
+            }
+
+            //SE
+            pos.definirValores(posicao.linha + 1, posicao.coluna + 1);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos)) {
+                mat[pos.linha, pos.coluna] = true;
+
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor) {
+                    break;
+                }
+                pos.definirValores(pos.linha + 1, pos.coluna + 1);
+            }
+
+            //SO
+            pos.definirValores(posicao.linha + 1, posicao.coluna - 1);
+            while (tabuleiro.posicaoValida(pos) && podeMover(pos)) {
+                mat[pos.linha, pos.coluna] = true;
+
+                if (tabuleiro.peca(pos) != null && tabuleiro.peca(pos).cor != cor) {
+                    break;
+                }
+                pos.definirValores(pos.linha + 1, pos.coluna - 1);
             }
 
             return mat;
