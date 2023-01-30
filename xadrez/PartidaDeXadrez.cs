@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Runtime.CompilerServices;
 using tabuleiro;
 using tabuleiro.Enums;
@@ -126,6 +127,22 @@ namespace xadrez_console.xadrez {
                 throw new TabuleiroException("Você não pode se colocar em xeque!");
             }
 
+            Peca p = tab.peca(destino);
+
+            //Especial
+            //promocao
+            if (p is Peao) {
+                if ((p.cor == Cor.Branca && destino.linha == 0) ||
+                    (p.cor == Cor.Preta && destino.linha == 7)) {
+                    p = tab.retirarPeca(destino);
+                    pecas.Remove(p);
+                    //todo - criar a peça conforme o usuario quer
+                    Peca dama = new Dama(tab, p.cor);
+                    tab.colocarPeca(dama, destino);
+                    pecas.Add(dama);
+                }
+            }
+
             if (estaEmXeque(adversaria(jogadorAtual))) {
                 xeque = true;
             } else {
@@ -139,7 +156,7 @@ namespace xadrez_console.xadrez {
                 mudaJogador();
             }
 
-            Peca p = tab.peca(destino);
+            
 
             //Especial
             //en passant
